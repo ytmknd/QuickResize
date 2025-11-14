@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuickResize - 画像リサイズツール</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>QuickResize</h1>
+            <p class="subtitle">ブラウザで完結する画像リサイズツール</p>
+        </header>
+
+        <main>
+            <div id="dropZone" class="drop-zone">
+                <svg class="upload-icon" xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="17 8 12 3 7 8"></polyline>
+                    <line x1="12" y1="3" x2="12" y2="15"></line>
+                </svg>
+                <p class="drop-text">画像をドラッグ＆ドロップ</p>
+                <p class="drop-subtext">または</p>
+                <button id="selectBtn" class="select-btn">ファイルを選択</button>
+                <input type="file" id="fileInput" accept="image/*" style="display: none;">
+                <p class="supported-formats">対応形式: JPG, PNG, GIF, WebP</p>
+            </div>
+
+            <div id="editorSection" class="editor-section" style="display: none;">
+                <div class="preview-container">
+                    <div class="preview-box">
+                        <h3>元画像</h3>
+                        <canvas id="originalCanvas"></canvas>
+                        <p id="originalInfo" class="image-info"></p>
+                    </div>
+                    <div class="preview-box">
+                        <h3>リサイズ後</h3>
+                        <canvas id="resizedCanvas"></canvas>
+                        <p id="resizedInfo" class="image-info"></p>
+                    </div>
+                </div>
+
+                <div class="controls">
+                    <div class="preset-buttons">
+                        <button type="button" class="preset-btn" data-scale="0.5">1/2に縮小</button>
+                        <button type="button" class="preset-btn" data-scale="0.333">1/3に縮小</button>
+                        <button type="button" class="preset-btn" data-scale="0.25">1/4に縮小</button>
+                    </div>
+
+                    <div class="control-group">
+                        <label for="widthInput">幅 (px)</label>
+                        <input type="number" id="widthInput" min="1" value="800">
+                    </div>
+
+                    <div class="control-group">
+                        <label for="heightInput">高さ (px)</label>
+                        <input type="number" id="heightInput" min="1" value="600">
+                    </div>
+
+                    <div class="control-group">
+                        <label>
+                            <input type="checkbox" id="maintainAspect" checked>
+                            縦横比を維持
+                        </label>
+                    </div>
+
+                    <div class="control-group">
+                        <label for="qualityInput">品質</label>
+                        <input type="range" id="qualityInput" min="0.1" max="1" step="0.1" value="0.9">
+                        <span id="qualityValue">90%</span>
+                    </div>
+
+                    <div class="control-group">
+                        <label for="formatSelect">出力形式</label>
+                        <select id="formatSelect">
+                            <option value="image/jpeg">JPEG</option>
+                            <option value="image/png">PNG</option>
+                        </select>
+                    </div>
+
+                    <div class="button-group">
+                        <button id="resizeBtn" class="btn btn-primary">リサイズ実行</button>
+                        <button id="downloadBtn" class="btn btn-success" style="display: none;">ダウンロード</button>
+                        <button id="resetBtn" class="btn btn-secondary">リセット</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>© 2025 QuickResize - すべての処理はブラウザ内で完結します</p>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
